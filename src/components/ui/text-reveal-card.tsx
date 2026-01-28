@@ -114,7 +114,7 @@ export const TextRevealCard = ({
             style={{
               textShadow: "4px 4px 15px rgba(0,0,0,0.5)",
             }}
-            className="text-base sm:text-[3rem] py-10 font-bold text-white w-full text-center whitespace-nowrap"
+            className="text-base sm:text-[2rem] py-10 font-bold text-white w-full text-center whitespace-nowrap"
           >
             {revealText}
           </p>
@@ -137,7 +137,7 @@ export const TextRevealCard = ({
             }}
             transition={isMouseOver ? { duration: 0 } : { duration: 0.2 }}
           >
-            <p className="text-base sm:text-[3rem] py-10 font-bold text-[#323238] w-full text-center whitespace-nowrap">
+            <p className="text-base sm:text-[2rem] py-10 font-bold text-[#323238] w-full text-center whitespace-nowrap">
               {text}
             </p>
           </motion.div>
