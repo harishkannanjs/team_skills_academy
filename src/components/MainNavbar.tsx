@@ -70,7 +70,7 @@ function Navbar() {
                         theme === 'dark' ? 'text-[#8e50ff]' : 'text-blue-600'
                     )}
                 >
-                    Harish Kannan J S
+                    Team Skills Academy
                 </button>
 
                 <div className="hidden items-center gap-1 md:flex">
