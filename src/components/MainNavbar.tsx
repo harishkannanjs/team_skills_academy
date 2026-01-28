@@ -14,7 +14,6 @@ function Navbar() {
     const links = [
         { label: 'About', href: '#about' },
         { label: 'Why TSA', href: '#why-tsa' },
-        { label: 'Skills', href: '#skills' },
         { label: 'Courses', href: '#courses' },
         { label: 'Contact', href: '#contact' },
     ];
@@ -81,8 +80,8 @@ function Navbar() {
                             className={cn(
                                 buttonVariants({ variant: 'ghost' }),
                                 "text-sm transition-colors cursor-pointer",
-                                theme === 'dark' 
-                                    ? "text-white hover:text-purple-600" 
+                                theme === 'dark'
+                                    ? "text-white hover:text-purple-600"
                                     : "text-gray-800 hover:text-blue-600"
                             )}
                         >
@@ -95,8 +94,8 @@ function Navbar() {
                         onClick={toggleTheme}
                         className={cn(
                             "rounded-full ml-2",
-                            theme === 'dark' 
-                                ? "text-white hover:bg-white/10" 
+                            theme === 'dark'
+                                ? "text-white hover:bg-white/10"
                                 : "text-gray-800 hover:bg-gray-300/30"
                         )}
                     >
@@ -111,8 +110,8 @@ function Navbar() {
                         onClick={toggleTheme}
                         className={cn(
                             "rounded-full",
-                            theme === 'dark' 
-                                ? "text-white hover:bg-white/10" 
+                            theme === 'dark'
+                                ? "text-white hover:bg-white/10"
                                 : "text-gray-800 hover:bg-gray-300/30"
                         )}
                     >
@@ -145,11 +144,10 @@ function Navbar() {
                             className={cn(
                                 buttonVariants({
                                     variant: 'ghost',
-                                    className: `justify-start text-lg w-full ${
-                                        theme === 'dark'
+                                    className: `justify-start text-lg w-full ${theme === 'dark'
                                             ? 'text-white hover:text-pink-600'
                                             : 'text-gray-800 hover:text-blue-600'
-                                    }`,
+                                        }`,
                                 })
                             )}
                         >
