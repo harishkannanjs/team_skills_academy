@@ -67,35 +67,29 @@ export const TextRevealCard = ({
       onTouchMove={touchMoveHandler}
       ref={cardRef}
       className={cn(
-        "bg-[#1d1c20] border border-white/[0.08] w-[40rem] rounded-lg p-8 relative overflow-hidden",
+        "bg-transparent w-[50rem] rounded-lg p-0 relative overflow-hidden",
         className
       )}
     >
       {children}
 
-      <div className="h-40  relative flex items-center overflow-hidden">
+      <div className="h-40 w-full relative flex items-center justify-center overflow-hidden">
         <motion.div
           style={{
             width: "100%",
           }}
-          animate={
-            isMouseOver
-              ? {
-                  opacity: widthPercentage > 0 ? 1 : 0,
-                  clipPath: `inset(0 ${100 - widthPercentage}% 0 0)`,
-                }
-              : {
-                  clipPath: `inset(0 ${100 - widthPercentage}% 0 0)`,
-                }
-          }
-          transition={isMouseOver ? { duration: 0 } : { duration: 0.4 }}
-          className="absolute bg-[#1d1c20] z-20  will-change-transform"
+          animate={{
+            opacity: isMouseOver ? 1 : 0,
+            clipPath: `inset(0 ${100 - widthPercentage}% 0 0)`,
+          }}
+          transition={isMouseOver ? { duration: 0 } : { duration: 0.2 }}
+          className="absolute bg-transparent z-20 will-change-transform"
         >
           <p
             style={{
               textShadow: "4px 4px 15px rgba(0,0,0,0.5)",
             }}
-            className="text-base sm:text-[3rem] py-10 font-bold text-white bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-300"
+            className="text-base sm:text-[3rem] py-10 font-bold text-white w-full text-center whitespace-nowrap"
           >
             {revealText}
           </p>
@@ -106,14 +100,22 @@ export const TextRevealCard = ({
             rotate: `${rotateDeg}deg`,
             opacity: widthPercentage > 0 ? 1 : 0,
           }}
-          transition={isMouseOver ? { duration: 0 } : { duration: 0.4 }}
-          className="h-40 w-[8px] bg-gradient-to-b from-transparent via-neutral-800 to-transparent absolute z-50 will-change-transform"
+          transition={isMouseOver ? { duration: 0 } : { duration: 0.2 }}
+          className="h-40 w-[2px] bg-gradient-to-b from-transparent via-purple-500 to-transparent absolute z-50 will-change-transform"
         ></motion.div>
 
-        <div className=" overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,white,transparent)]">
-          <p className="text-base sm:text-[3rem] py-10 font-bold bg-clip-text text-transparent bg-[#323238]">
-            {text}
-          </p>
+        <div className="w-full flex justify-center overflow-hidden">
+          <motion.div
+            style={{ width: "100%" }}
+            animate={{
+              clipPath: `inset(0 0 0 ${widthPercentage}%)`,
+            }}
+            transition={isMouseOver ? { duration: 0 } : { duration: 0.2 }}
+          >
+            <p className="text-base sm:text-[3rem] py-10 font-bold text-[#323238] w-full text-center whitespace-nowrap">
+              {text}
+            </p>
+          </motion.div>
           <MemoizedStars />
         </div>
       </div>

@@ -1,28 +1,19 @@
-"use client";
-import { useState } from "react";
-import {
-    Navbar,
-    NavBody,
-    NavItems,
-    MobileNav,
-    NavbarLogo,
-    NavbarButton,
-    MobileNavHeader,
-    MobileNavToggle,
-    MobileNavMenu,
-} from "@/components/ui/resizable-navbar";
-import { useTheme } from "@/context/ThemeContext";
+import React from 'react';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
+import { useScroll } from '@/components/ui/use-scroll';
 
-export default function MainNavbar() {
-    const { theme, toggleTheme } = useTheme();
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+function Navbar() {
+    const [open, setOpen] = React.useState(false);
+    const scrolled = useScroll(10);
 
-    const navItems = [
-        { name: "Home", link: "#home" },
-        { name: "About", link: "#about" },
-        { name: "WhyTSA", link: "#why-tsa" },
-        { name: "Courses", link: "#courses" },
-        { name: "Contact", link: "#contact" },
+    const links = [
+        { label: 'About', href: '#about' },
+        { label: 'Why TSA', href: '#why-tsa' },
+        { label: 'Skills', href: '#skills' },
+        { label: 'Courses', href: '#courses' },
+        { label: 'Contact', href: '#contact' },
     ];
 
     const scrollToSection = (sectionId: string) => {
@@ -30,69 +21,97 @@ export default function MainNavbar() {
         if (element) {
             element.scrollIntoView({ behavior: "smooth" });
         }
-        setIsMobileMenuOpen(false);
+        setOpen(false);
     };
 
+    React.useEffect(() => {
+        if (open) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [open]);
+
     return (
-        <div className="relative w-full">
-            <Navbar>
-                {/* Desktop Navigation */}
-                <NavBody>
-                    <NavbarLogo />
-                    <NavItems items={navItems} onItemClick={scrollToSection} />
-                    <div className="relative z-[70] flex flex-shrink-0 items-center gap-4">
+        <header
+            className={cn(
+                'fixed top-0 inset-x-0 z-100 mx-auto w-full max-w-[1440px] transition-all duration-300 ease-out bg-transparent',
+                {
+                    'bg-[#0d1224]/30 border-[#25213b] backdrop-blur-md md:top-4 md:max-w-6xl md:rounded-full md:border md:shadow-lg':
+                        scrolled && !open,
+                    'bg-[#0d1224]/90': open,
+                },
+            )}
+        >
+            <nav
+                className={cn(
+                    'flex h-16 w-full items-center justify-between px-6 transition-all duration-300 ease-out md:h-14',
+                    {
+                        'md:px-8': scrolled,
+                    },
+                )}
+            >
+                <button
+                    onClick={() => scrollToSection("#home")}
+                    className="text-[#8e50ff] text-2xl font-bold transition-all hover:scale-105 cursor-pointer"
+                >
+                    Harish Kannan J S
+                </button>
+
+                <div className="hidden items-center gap-1 md:flex">
+                    {links.map((link, i) => (
                         <button
-                            onClick={toggleTheme}
-                            className="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
+                            key={i}
+                            onClick={() => scrollToSection(link.href)}
+                            className={cn(
+                                buttonVariants({ variant: 'ghost' }),
+                                "text-sm text-white hover:text-purple-600 transition-colors cursor-pointer"
+                            )}
                         >
-                            {theme === "light" ? "🌙" : "☀️"}
+                            {link.label}
                         </button>
-                        <NavbarButton variant="primary">Apply Now</NavbarButton>
-                    </div>
-                </NavBody>
+                    ))}
+                </div>
 
-                {/* Mobile Navigation */}
-                <MobileNav>
-                    <MobileNavHeader>
-                        <NavbarLogo />
-                        <div className="flex items-center gap-2">
-                            <button
-                                onClick={toggleTheme}
-                                className="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-                            >
-                                {theme === "light" ? "🌙" : "☀️"}
-                            </button>
-                            <MobileNavToggle
-                                isOpen={isMobileMenuOpen}
-                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            />
-                        </div>
-                    </MobileNavHeader>
+                <Button
+                    size="icon"
+                    variant="ghost"
+                    onClick={() => setOpen(!open)}
+                    className="md:hidden text-white hover:bg-white/10"
+                >
+                    <MenuToggleIcon open={open} className="size-6" duration={300} />
+                </Button>
+            </nav>
 
-                    <MobileNavMenu
-                        isOpen={isMobileMenuOpen}
-                        onClose={() => setIsMobileMenuOpen(false)}
-                    >
-                        {navItems.map((item, idx) => (
-                            <button
-                                key={`mobile-link-${idx}`}
-                                onClick={() => scrollToSection(item.link)}
-                                className="relative text-left w-full px-4 py-2 text-neutral-600 dark:text-neutral-300"
-                            >
-                                <span className="block">{item.name}</span>
-                            </button>
-                        ))}
-                        <div className="flex w-full flex-col gap-4 px-4 pt-4">
-                            <NavbarButton
-                                variant="primary"
-                                className="w-full text-center"
-                            >
-                                Apply Now
-                            </NavbarButton>
-                        </div>
-                    </MobileNavMenu>
-                </MobileNav>
-            </Navbar>
-        </div>
+            {/* Mobile Menu */}
+            <div
+                className={cn(
+                    'fixed top-16 right-0 bottom-0 left-0 z-50 flex flex-col overflow-hidden bg-[#0d1224] transition-all duration-300 md:hidden',
+                    open ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0',
+                )}
+            >
+                <div className="flex h-full flex-col p-6 gap-4">
+                    {links.map((link) => (
+                        <button
+                            key={link.label}
+                            onClick={() => scrollToSection(link.href)}
+                            className={cn(
+                                buttonVariants({
+                                    variant: 'ghost',
+                                    className: 'justify-start text-lg text-white hover:text-pink-600 w-full',
+                                })
+                            )}
+                        >
+                            {link.label}
+                        </button>
+                    ))}
+                </div>
+            </div>
+        </header>
     );
 }
+
+export default Navbar;
