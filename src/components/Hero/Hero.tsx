@@ -12,11 +12,11 @@ const Hero: React.FC = () => {
     return (
         <section id="home" className={styles.hero}>
             <div className={styles.container}>
-                <div className="flex flex-col items-center justify-center scale-150 transform transition-transform duration-500">
+                <div className="flex flex-col items-center justify-center scale-100 md:scale-150 transform transition-transform duration-500">
                     <TextRevealCard
                         text="You see the skill gap"
                         revealText="We design training that closes it"
-                        className="text-center"
+                        className="text-center w-full md:w-auto"
                     >
                         <TextRevealCardTitle className="text-center text-2xl">
                             Training built for real-world performance.
