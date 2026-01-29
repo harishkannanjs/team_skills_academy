@@ -7,6 +7,7 @@ import {
     TextRevealCardTitle,
     TextRevealCardDescription,
 } from "@/components/ui/text-reveal-card";
+import { Text_03 } from "@/components/ui/wave-text";
 
 const Hero: React.FC = () => {
     return (
@@ -18,12 +19,18 @@ const Hero: React.FC = () => {
                         revealText="We design training that closes it"
                         className="text-center w-full md:w-auto"
                     >
-                        <TextRevealCardTitle className="text-center text-2xl">
-                            Training built for real-world performance.
+                        <TextRevealCardTitle className="text-center text-2xl overflow-visible py-2">
+                            <Text_03
+                                text="Training built for real-world performance."
+                                className="text-2xl font-bold text-white block"
+                            />
                         </TextRevealCardTitle>
 
-                        <TextRevealCardDescription className="text-center text-lg">
-                            Designed by industry experts. Customized for measurable impact.
+                        <TextRevealCardDescription className="text-center text-lg overflow-visible py-2">
+                            <Text_03
+                                text="Designed by industry experts. Customized for measurable impact."
+                                className="text-lg text-[#a9a9a9] block"
+                            />
                         </TextRevealCardDescription>
                     </TextRevealCard>
                 </div>

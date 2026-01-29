@@ -1,7 +1,29 @@
 import React from 'react';
 import styles from './About.module.css';
+import { NewCard } from '../ui/new-card';
 
 const About: React.FC = () => {
+    const highlights = [
+        {
+            icon: "🏆",
+            title: "20+ Years of Expertise",
+            text: "Leveraging two decades of industry leadership to deliver world-class technical and professional development.",
+            badge: "Expertise"
+        },
+        {
+            icon: "🛠️",
+            title: "Holistic Skill Mastery",
+            text: "A specialized blend of cutting-edge technical training and essential soft skills tailored for modern industry demands.",
+            badge: "Skills"
+        },
+        {
+            icon: "🚀",
+            title: "Innovation-Driven",
+            text: "Empowering teams through modern, result-oriented methodologies designed by experts who have shaped leading industries.",
+            badge: "Innovation"
+        }
+    ];
+
     return (
         <section id="about" className={styles.about}>
             <div className={styles.container}>
@@ -12,30 +34,17 @@ const About: React.FC = () => {
                     experts with over 20 years of experience in Technical and Soft Skill training to the leading Industries.
                 </p>
 
-                <div className={styles.highlights}>
-                    <div className={styles.card}>
-                        <div className={styles.cardIcon}>🏆</div>
-                        <h4 className={styles.cardTitle}>20+ Years of Expertise</h4>
-                        <p className={styles.cardText}>
-                            Leveraging two decades of industry leadership to deliver world-class technical and professional development.
-                        </p>
-                    </div>
-
-                    <div className={styles.card}>
-                        <div className={styles.cardIcon}>🛠️</div>
-                        <h4 className={styles.cardTitle}>Holistic Skill Mastery</h4>
-                        <p className={styles.cardText}>
-                            A specialized blend of cutting-edge technical training and essential soft skills tailored for modern industry demands.
-                        </p>
-                    </div>
-
-                    <div className={styles.card}>
-                        <div className={styles.cardIcon}>🚀</div>
-                        <h4 className={styles.cardTitle}>Innovation-Driven</h4>
-                        <p className={styles.cardText}>
-                            Empowering teams through modern, result-oriented methodologies designed by experts who have shaped leading industries.
-                        </p>
-                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                    {highlights.map((item, index) => (
+                        <NewCard
+                            key={index}
+                            icon={item.icon}
+                            title={item.title}
+                            description={item.text}
+                            badge={item.badge}
+                            delay={`${index * 0.5}s`}
+                        />
+                    ))}
                 </div>
             </div>
         </section>
