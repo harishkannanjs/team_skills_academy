@@ -24,7 +24,7 @@ function Text_03({
             {text.split("").map((char, index) => (
                 <motion.span
                     key={index}
-                    className="inline-block"
+                    className="inline-block whitespace-pre"
                     variants={{
                         initial: {
                             y: 0,
@@ -42,7 +42,7 @@ function Text_03({
                         },
                     }}
                 >
-                    {char}
+                    {char === " " ? "\u00A0" : char}
                 </motion.span>
             ))}
         </motion.span>
